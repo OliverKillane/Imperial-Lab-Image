@@ -1,2 +1,7 @@
 #!/bin/bash
-java -jar checkstyle.jar -c=google_checks.xml $@
+RESULT=$(java -jar /checkstyle.jar -c="/google_checks.xml" $@)
+if echo "$RESULT" | grep -q "WARN"; then
+  echo "Failed Style Check:"
+  echo "$RESULT"
+  exit 1
+fi
